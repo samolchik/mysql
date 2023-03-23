@@ -1,4 +1,8 @@
+# Home work 1
+
+# запускаємо БД від своїм логіном
 use samol;
+
 # знайти всі машини старші за 2000 р.
 select * from cars where year > 2000;
 

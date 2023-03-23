@@ -1,0 +1,86 @@
+# Cтворюємо таблицю
+create table users (
+id int not null auto_increment primary key,
+name varchar (25) not null,
+age int not null,
+gender varchar (6) not null
+);
+
+# Створюємо юзера
+insert into users values (nUll, "Max", 15, "Male");
+
+# Виводимо в таблицю
+select * from users;
+
+# Пошук Users за параметрами
+select * from users;
+select id, name from users;
+select * from users where name= 'max';
+select * from users where gender='male' and age=30 or age=36;
+
+# Шукаємо всі users, чиє імʼя починається на o. % - знак, всерівно, що стоіть спереду/позаду.
+select * from users where name like 'o%';
+
+# Шукаємо всіх users, чиє імʼя містить літеру s.
+select * from users where name Like '%s%';
+
+# Шукаємо всіх users, чиє імʼя містить третю літеру s.
+select × from users where name like '__s%';
+
+# Шукаємо всіх users, в пате яких є пробіл:
+Select * from users where name like '% %';
+
+# Шукаємо cix users, чий вік:
+select * from users where age=30;
+select * from users where age!=30;
+select * from users where age<=30;
+
+# Шукаємо всх users, чий вік є/немає в інтервалі:
+select * from users where age between 30 and 40;
+select * from users where age>=30 and users.age<=40;
+select * from Users where age not between 30 and 40;
+
+# Шукаємо всіх users, чий вік із переліку/чи не входять
+select * from users where age in (20,5,36,10,30);
+select * from users where age not in (20,5,36,10,30);
+
+# Шукаємо всіх users по кількості символів в name:
+select * from users where length (name) >5;
+
+# Сортування (за замовчуванням min-max - asc):
+select * from users order by age;
+
+# Сортування max-min - desc:
+select * from users order by age desc;
+
+# Сортування max-min - desc, вивести з лімітом перші 5 в списку:
+select * from users order by age desc limit 5;
+
+# Використання ліміта, напр. перші 4 в списку:
+select * from users limit 4;
+
+# Використання ліміта, напр. перші 4 та пропусти 2:
+select * from users limit 4 offset 2;
+
+# Для перейменуання папки використовуємо as:
+select min(age) as minAge from users;
+select max(age) as maxAge from users;
+select avg (age) as avgAge from users;
+select sum(age) as sumAge from users;
+
+# Рахує всі стрічки в таблиці
+select count(*) as countAge from users;
+
+#Групування
+select count (*) as count, gender as myGender from users group by gender;
+select avg(age) as age, gender from users where age>25 group by gender;
+
+# Після групування викор. having замість where, щоб додати ще умови
+select count (*) as countCar, model from cars where year>2015 group by model having countCar>2;
+
+# Змінюємо у всіх юзерів вік на 18, якщо до цього він був age<=16
+update users set age=18 where age<=16;
+
+# Видаляємо в таблиці юзера з id=1
+select * from people;
+delete from people where id=1;
