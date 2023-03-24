@@ -1,0 +1,51 @@
+# Виводимо список юзерів
+select distinct name from users;
+
+# Обʼєднуємо дві команди через union
+select max(age) as max from users
+union
+select min(age) as min from users;
+
+# Створюємо таблицю cities та clients, робимо посилання clients на cities(id) за допомогою ключа:
+create table cities (
+    id int primary key auto_increment not null,
+    city varchar(20) not null
+);
+
+create table clients (
+id int primary key auto_increment not null,
+name varchar(20) not null,
+age int not null,
+city_id  int null,
+foreign key (city_id) references cities(id)
+);
+
+# Зʼєднуємо таблиці в одну і виводимо всі дані, де є співпадіння по id
+select clients.name, cities. * from clients
+join cities on cities.id = clients.city_id
+where city='Kyiv';
+
+# Зʼєднуємо таблиці в одну і виводимо всі дані табл clients, що зліва (врах. null)
+select * from clients
+left join cities on cities.id = clients.city_id;
+
+# Зʼєднуємо таблиці в одну і виводимо всі дані таблиці cities, що справа (врах. null)
+select * from clients
+right join cities on cities.id = clients.city_id;
+
+# Видаляємо юзера із міста конкретного
+delete clients from clients
+    join cities c on c.id = clients.city_id where clients.age=56 and city='odesa';
+
+# Шукаємо юзерів з певного міста, а потім шукаємо співпадіння по  age з першого пошук (age=34 і 44)
+select * from clients where age in (select age from clients join cities c on c.id = clients.city_id
+where city='kyiv');
+
+# Шукаємо юзерів з певного міста, а потім шукаємо по першому значенню age з першого пошук (age=34) з лімітом
+select * from clients where age=(select age from clients join cities c on c.id = clients.city_id
+where city='kyiv' limit 1);
+
+# Зʼєднуємо три таблиці в одну і виводимо всі дані
+select * from client
+        join application a on client.idClient = a.Client_idClient
+        join department d on d.idDepartment = client.Department_idDepartment;
